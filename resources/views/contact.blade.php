@@ -18,7 +18,7 @@
             </div>
         @endif
 
-        {{-- Hata Mesajları (Genel) --}}
+        {{-- Hata Mesajları --}}
         @if ($errors->any())
             <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 15px;">
                 <ul class="mb-0">
@@ -61,7 +61,6 @@
             <div class="col-md-6 mb-4">
                 <div class="map_container shadow-sm bg-white" style="border-radius: 20px; overflow: hidden; height: 100%; min-height: 450px; display: flex; flex-direction: column;">
                     <div style="flex-grow: 1; width: 100%;">
-                        {{-- Kocaeli Üniversitesi Umuttepe Pinli Harita --}}
                         <iframe 
                             width="100%" 
                             height="100%" 

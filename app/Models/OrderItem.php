@@ -19,7 +19,6 @@ class OrderItem extends Model
 
     /**
      * Bu sipariş kalemi hangi ürüne ait?
-     * Bu ilişki sayesinde $item->product->name diyerek ürün ismine ulaşabilirsin.
      */
     public function product()
     {
@@ -27,7 +26,7 @@ class OrderItem extends Model
     }
 
     /**
-     * Bu kalem hangi siparişe ait?
+     * işlem hangi siparişe ait?
      */
     public function order()
     {

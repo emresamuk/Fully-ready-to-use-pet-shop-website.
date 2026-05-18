@@ -10,7 +10,6 @@ class AdminUserController extends Controller
     // Kullanıcıları Listele
     public function index()
     {
-        // Kendimizi (Admini) listede yanlışlıkla silmemek için dışarıda bırakıyoruz
         $users = User::where('id', '!=', auth()->id())->orderBy('created_at', 'desc')->get();
         return view('admin.users.index', compact('users'));
     }

@@ -9,7 +9,7 @@
             </div>
         @endif
 
-        {{-- Hata Mesajı (Stok yetersizliği uyarısı için) --}}
+        {{-- Stok Yetersizliği Uyarısı --}}
         @if(session('error'))
             <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 15px;">
                 <i class="fa-solid fa-triangle-exclamation mr-2"></i> {{ session('error') }}

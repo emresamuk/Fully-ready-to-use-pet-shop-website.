@@ -35,7 +35,7 @@ class AdminProductController extends Controller
         $product->name = $request->name;
         $product->price = $request->price;
         $product->stock = $request->stock;
-        $product->is_active = 1; // Varsayılan olarak satışta
+        $product->is_active = 1; 
 
         // Fotoğraf Yükleme İşlemi
         if ($request->hasFile('image')) {
@@ -95,7 +95,7 @@ class AdminProductController extends Controller
 {
     $product = Product::findOrFail($id);
     
-    // Gerçekten silmek yerine pasife çekiyoruz
+    // Gerçekten silmek yerine pasife çekiyoruz çünkü ürünün geçmişi ve siparişlerdeki ilişkisi önemli olabilir. Ancak fotoğrafı silelim ki gereksiz dosya kalmasın.
     $product->is_active = 0;
     $product->save();
 

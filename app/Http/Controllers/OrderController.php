@@ -19,12 +19,9 @@ class OrderController extends Controller
         return view('user.orders', compact('user_orders'));
     }
 
-    /**
-     * Sipariş Detay Sayfası
-     */
+
     public function show($id)
     {
-        // Siparişi, kalemlerini ve o kalemlere ait ürün bilgilerini tek seferde çekiyoruz
         $order = Order::with('items.product')
                       ->where('id', $id)
                       ->where('user_id', Auth::id())

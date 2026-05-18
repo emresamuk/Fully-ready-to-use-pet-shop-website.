@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\Message; // Mesaj modelini ekledik
+use App\Models\Message; 
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    // --- YENİ EKLENEN: ADMIN ANA SAYFASI (DASHBOARD) ---
+    // Admin ana sayfası
     public function dashboard()
     {
-        // Ana sayfadaki kartlar için genel istatistikleri hesapla
+        // Ana sayfadaki kartlardaki genel şeyler
         $stats = [
             'orders_count'   => Order::count(),
-            'total_earnings' => Order::where('status', '!=', 'iptal_edildi')->sum('total_amount'), // Senin mevcut kazanç hesaplama mantığın
+            'total_earnings' => Order::where('status', '!=', 'iptal_edildi')->sum('total_amount'), // mevcut kazanç
             'products_count' => Product::count(),
             'users_count'    => User::where('role', 'user')->count(),
             'messages_count' => Message::count(),
@@ -25,11 +25,11 @@ class AdminController extends Controller
         return view('admin.index', compact('stats'));
     }
 
-    // --- MEVCUT: SİPARİŞLER SAYFASI ---
+    // Siparişler 
     public function index()
     {
-        // İstatistikleri hesapla
-        $totalOrders = Order::count(); // Toplam Sipariş Sayısı
+        // Toplam Sipariş Sayısı
+        $totalOrders = Order::count(); 
         
         // Toplam Kazanç
         $totalEarnings = Order::where('status', '!=', 'iptal_edildi')->sum('total_amount');
@@ -43,7 +43,7 @@ class AdminController extends Controller
         return view('admin.orders', compact('orders', 'totalOrders', 'totalEarnings', 'pendingMessages'));
     }
 
-    // --- MEVCUT: SİPARİŞ DURUMU GÜNCELLEME ---
+    // Sipariş durumunu güncelleme
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
@@ -83,23 +83,23 @@ class AdminController extends Controller
         return back()->with('success', 'Sipariş durumu başarıyla güncellendi.');
     }
 
-    // --- MEVCUT: KULLANICI YÖNETİMİ (Eski sayfan için, biz AdminUserController kurduk ama dursun) ---
+    // Kullanıcı yönetimi
     public function manageUsers()
     {
         $users = User::where('role', 'user')->get();
         return view('admin.users', compact('users'));
     }
 
-    // --- MEVCUT: MESAJ YÖNETİMİ ---
+    // Mesaj yönetimi
     public function manageMessages()
     {
-        // En yeni mesajlar en üstte gelecek şekilde tüm mesajları çek
+        // En yeni mesajlar en üstte gelecek şekilde tüm mesajları listele
         $messages = Message::orderBy('created_at', 'desc')->get();
 
         return view('admin.messages', compact('messages'));
     }
 
-    // --- MEVCUT: MESAJ SİLME ---
+    // Mesaj silme
     public function deleteMessage($id)
     {
         $message = Message::findOrFail($id);

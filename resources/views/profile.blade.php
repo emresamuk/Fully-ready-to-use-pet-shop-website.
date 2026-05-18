@@ -74,7 +74,7 @@
         transform: translateY(-2px);
     }
 
-    /* Gizli Form Alanı İçin Animasyon */
+    
     #editProfileSection {
         display: none;
         animation: fadeIn 0.5s ease-in-out;
@@ -121,7 +121,6 @@
                             </div>
                         @endif
 
-                        {{-- SABİT GÖRÜNÜM MODU --}}
                         <div class="row" id="viewModeSection">
                             <div class="col-12">
                                 <h5 class="font-weight-bold text-dark mb-4"><i class="fa-solid fa-address-card mr-2 text-warning"></i>Kişisel Bilgiler</h5>
@@ -152,7 +151,7 @@
                             </div>
                         </div>
 
-                        {{-- DÜZENLEME MODU (GİZLİ FORMLAR) --}}
+                        {{-- DÜZENLEME MODU --}}
                         <div id="editProfileSection" class="mt-5 pt-4" style="border-top: 2px dashed #eee;">
                             <div class="row">
                                 {{-- Sol Taraf: Hesap Bilgilerini Güncelleme Formu --}}
@@ -182,7 +181,7 @@
                                     </form>
                                 </div>
 
-                                {{-- Sağ Taraf: Şifre Değiştirme Formu --}}
+                                {{-- Şifre Değiştirme Formu --}}
                                 <div class="col-md-6 pl-md-4">
                                     <h5 class="font-weight-bold text-dark mb-4"><i class="fa-solid fa-shield-halved mr-2 text-danger"></i>Şifre Değiştir</h5>
                                     
@@ -208,7 +207,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- HESAP DONDURMA (TEHLİKELİ BÖLGE) --}}
+                        {{-- HESAP DONDURMA --}}
                         <div class="row mt-5 pt-4" style="border-top: 2px dashed #e74c3c;">
                             <div class="col-12 text-center">
                                 <h5 class="font-weight-bold mb-3" style="color: #e74c3c;">

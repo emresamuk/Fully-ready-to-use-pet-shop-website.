@@ -124,7 +124,7 @@
           $testimonials = [
             ['name' => 'Ertuğrul Ö.', 'text' => 'Sipariş verdim, 24 saat geçmeden mama elimdeydi. Gerçekten çok hızlılar.'],
             ['name' => 'Kadir Ç.', 'text' => 'Ürünler kaliteli ve paketleme çok sağlamdı. Artık tek adresim Drool.'],
-            ['name' => 'Emre S.', 'text' => 'Bakiye sistemi çok pratik olmuş, iadeler anında hesabıma geçiyor.']
+            ['name' => 'Emre S.', 'text' => 'Bakiye sistemi çok pratik olmuş, iadeler anında hesabıma geçiyor.'],
           ];
         @endphp
         @foreach($testimonials as $t)

@@ -240,7 +240,7 @@
                                     </button>
                                 </form>
                             @else
-                                {{-- Giriş yapmamış kullanıcı alanı aynı kalabilir --}}
+                                {{-- Giriş yapmamış kullanıcı alanı --}}
                                 <div class="d-flex justify-content-between mb-4" style="font-size: 1.3rem;">
                                     <span class="font-weight-bold text-dark">Genel Toplam:</span>
                                     <span class="font-weight-bold" style="color: #0a2458;">${{ number_format($total, 2) }}</span>
@@ -257,7 +257,7 @@
                 </div>
 
             @else
-                {{-- Boş sepet alanı aynı kalabilir --}}
+                {{-- Boş sepet alanı --}}
                 <div class="text-center py-5">
                     <div class="mb-4">
                         <i class="fa-solid fa-cart-arrow-down fa-4x text-muted" style="opacity: 0.5;"></i>

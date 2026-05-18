@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Evcil Hayvan Ürünü ' . $i,
             'price' => rand(50, 500),
             'stock' => rand(5, 100),
-            'image' => 'f1.png' // Örnek resim adı
+            'image' => 'f1.png' 
         ]);
     }
 }

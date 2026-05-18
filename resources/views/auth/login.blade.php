@@ -66,7 +66,7 @@
                 <div class="auth_card">
                     <h2 class="auth_title">Giriş Yap</h2>
                     
-                    {{-- Şifre Başarıyla Değişince Gelen Yeşil Bildirim --}}
+                    {{-- Şifre değişince gelen bildirim --}}
                     @if(session('success'))
                         <div class="alert alert-success shadow-sm border-0 mb-4" style="border-radius: 10px;">
                             <i class="fa-solid fa-circle-check mr-2"></i> {{ session('success') }}

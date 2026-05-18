@@ -64,7 +64,7 @@ class ProfileController extends Controller
         return back()->with('success', 'Şifreniz başarıyla değiştirildi.');
     }
 
-    // Hesabı Pasife Al (Dondur)
+    // Hesabı Pasife Al 
     public function deactivate(Request $request)
     {
         $user = Auth::user();
@@ -76,7 +76,7 @@ class ProfileController extends Controller
         // Kullanıcının oturumunu kapat
         Auth::logout();
         
-        // Güvenlik için oturum verilerini temizle
+        // oturum verilerini temizle
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

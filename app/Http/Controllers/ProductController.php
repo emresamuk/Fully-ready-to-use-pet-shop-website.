@@ -9,22 +9,22 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // 1. Sadece aktif (is_active = 1) olan ürünleri baz alıyoruz
+        // Sadece aktif (is_active = 1) olan ürünleri baz alıyoruz
         $query = Product::where('is_active', 1); 
 
-        // 2. İsimle Arama
+        // İsimle Arama
         if ($request->has('search') && $request->search != '') {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // 3. Kategoriye Göre Filtreleme
+        // Kategoriye Göre Filtreleme
         if ($request->has('category') && $request->category != '') {
             $query->where('category', $request->category);
         }
 
         $products = $query->get();
 
-        // 4. Sadece aktif ürünlerin kategorilerini filtre listesine getiriyoruz
+        // Sadece aktif ürünlerin kategorilerini filtre listesine getiriyoruz
         $categories = Product::where('is_active', 1)
                              ->select('category')
                              ->distinct()

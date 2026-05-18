@@ -12,7 +12,6 @@ class RegisterController extends Controller
 {
     /**
      * Kayıt formunu gösterir.
-     * web.php içindeki showRegistrationForm ile eşleşir.
      */
     public function showRegistrationForm()
     {
@@ -24,14 +23,14 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        // 1. Veri Doğrulama
+        // Veri Doğrulama
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // 2. Kullanıcıyı Veritabanına Kaydet
+        // Kullanıcıyı Veritabanına Kaydet
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -40,10 +39,9 @@ class RegisterController extends Controller
             'balance' => 0.00 // İlk kayıt bakiyesi
         ]);
 
-        // 3. Kayıttan sonra otomatik giriş yap
+        // Kayıttan sonra otomatik giriş yap
         Auth::login($user);
 
-        // 4. Başarılı mesajıyla yönlendir
         return redirect('/products')->with('success', 'Aramıza hoş geldin! İlk alışverişine başlayabilirsin.');
     }
 }

@@ -9,7 +9,7 @@
             <p class="text-muted">Sistemdeki genel durumu ve siparişleri buradan yönetebilirsiniz.</p>
         </div>
 
-        {{-- DASHBOARD İSTATİSTİK KARTLARI --}}
+        {{-- İstatistikler --}}
         <div class="row mb-4">
             <div class="col-md-4 mb-3">
                 <div class="card border-0 shadow-sm text-white" style="background-color: #0a2458; border-radius: 15px;">
@@ -40,12 +40,12 @@
             </div>
         </div>
 
-        {{-- BİLDİRİMLER --}}
+        {{-- Bildirimler --}}
         @if(session('success'))
             <div class="alert alert-success border-0 shadow-sm mb-3">{{ session('success') }}</div>
         @endif
 
-        {{-- SİPARİŞ TABLOSU --}}
+        {{-- Sipariş Tablosu --}}
         <div class="table-responsive shadow-sm" style="border-radius: 15px; overflow: hidden;">
             <table class="table table-hover bg-white mb-0">
                 <thead style="background-color: #0a2458; color: #fdd31d;">

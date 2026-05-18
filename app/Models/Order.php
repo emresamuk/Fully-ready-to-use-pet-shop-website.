@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-
-    // Hata veren kısmı bu satırla çözüyoruz:
-    // Bu dizi içindeki sütunlar veritabanına toplu olarak yazılabilir hale gelir.
     protected $fillable = [
         'user_id',
         'total_amount',
@@ -18,9 +15,6 @@ class Order extends Model
         'address',
     ];
 
-    /**
-     * Siparişin kime ait olduğunu belirtir (İlişki)
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,7 +22,6 @@ class Order extends Model
 
     public function items()
 {
-    // Bir siparişin birden fazla kalemi (item) olur
     return $this->hasMany(\App\Models\OrderItem::class, 'order_id');
 }
 }

@@ -27,9 +27,9 @@
         margin-bottom: 8px;
     }
     
-    /* Input ve Select Ortak Stil */
+   
     .filter_input {
-        height: 50px !important; /* Yükseklik sabitlendi */
+        height: 50px !important; 
         border-radius: 12px;
         border: 2px solid #eee;
         padding: 10px 15px;
@@ -38,7 +38,7 @@
         color: #333;
     }
     
-    /* Dropdown (Select) Özel Düzenleme */
+    /* Dropdown Özel Düzenleme */
     select.filter_input {
         appearance: none;
         -webkit-appearance: none;

@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}" />
   <title>Drool Pet Shop</title>
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
@@ -66,7 +67,7 @@
     .menu_dropdown {
       position: absolute;
       top: 65px;
-      right: 0; /* Menü en sağda olduğu için sağa yasladık */
+      right: 0; 
       background: #0a2458;
       width: 240px;
       border-radius: 15px;
@@ -124,12 +125,12 @@
 
         <div class="d-flex align-items-center position-relative">
           @auth
-              {{-- 1. Bakiye --}}
+              {{-- Bakiye --}}
               <span class="balance_text d-none d-sm-inline">
                 <i class="fa-solid fa-wallet mr-1"></i> ${{ number_format(auth()->user()->balance, 2) }}
               </span>
               
-              {{-- 2. Sepet --}}
+              {{-- Sepet --}}
               <a href="{{ url('/cart') }}" class="icon_btn position-relative" title="Sepetim">
                 <i class="fa-solid fa-cart-shopping"></i>
                 @if(session('cart') && count(session('cart')) > 0)
@@ -140,13 +141,13 @@
                 @endif
               </a>
 
-              {{-- 3. Çıkış Yap --}}
+              {{-- Çıkış Yap --}}
               <form action="{{ url('/logout') }}" method="POST" id="logout-form" style="display:none;">@csrf</form>
               <button class="icon_btn" onclick="document.getElementById('logout-form').submit()" title="Çıkış Yap">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
               </button>
 
-              {{-- 4. Menü (EN SAĞDA) --}}
+              {{-- Menü  --}}
               <button class="icon_btn" onclick="toggleMenu()" title="Menü">
                 <i class="fa-solid fa-bars"></i>
               </button>

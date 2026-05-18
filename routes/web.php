@@ -10,9 +10,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProductController; // Ürün kontrolü için eklendi
+use App\Http\Controllers\ProductController; 
 
-// --- Genel Sayfalar ---
+// Genel Sayfalar
 Route::get('/', function () {
     $products = Product::where('is_active', 1)->take(3)->get(); 
     return view('index', compact('products'));
@@ -32,7 +32,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.send');
 
 
-// --- Kimlik Doğrulama (Auth) ---
+// Kimlik Doğrulama
 
 // Giriş & Çıkış
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -50,7 +50,7 @@ Route::get('password/reset/{token}', [App\Http\Controllers\Auth\ResetPasswordCon
 Route::post('password/reset', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
 
 
-// --- Sadece Giriş Yapmış Kullanıcılar ---
+// Sadece Giriş Yapmış Kullanıcılar
 Route::middleware(['auth'])->group(function () {
     
     // Profil ve Bakiye
@@ -74,7 +74,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/order/cancel/{id}', [OrderController::class, 'cancel']);
     Route::post('/order/delivered/{id}', [OrderController::class, 'delivered']);
 
-    // --- Admin Paneli İşlemleri ---
+    // Admin Paneli İşlemleri
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         

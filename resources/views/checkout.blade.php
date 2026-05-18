@@ -38,7 +38,7 @@
             
             <div class="col-md-5">
                 <div class="box p-3 shadow-sm">
-                    <h5>Sipariş Özeti [cite: 45]</h5>
+                    <h5>Sipariş Özeti </h5>
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span>Ürün Toplamı:</span>

@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    {{-- YÖNETİM MENÜSÜ (BÜYÜK KARTLAR) --}}
+    {{-- YÖNETİM MENÜSÜ --}}
     <div class="row">
         {{-- Ürün Yönetimi --}}
         <div class="col-md-4 mb-4">

@@ -12,13 +12,12 @@ class ContactController extends Controller
     }
 
     public function store(Request $request) {
-        // 1. Veri Doğrulama ve Özelleştirilmiş Hata Mesajları
+        // Veri Doğrulama ve Özelleştirilmiş Hata Mesajları
         $validatedData = $request->validate([
             'name'    => 'required|min:3|max:255',
             'email'   => 'required|email|max:255',
             'message' => 'required|min:10'
         ], [
-            // Burası hata mesajlarını Türkçeleştirdiğimiz yer
             'name.required'     => 'Ad soyad alanı zorunludur.',
             'name.min'          => 'Adınız en az 3 karakter olmalıdır.',
             'email.required'    => 'E-posta adresi zorunludur.',
@@ -27,7 +26,7 @@ class ContactController extends Controller
             'message.min'       => 'Mesajınız en az 10 karakterden oluşmalıdır.'
         ]);
 
-        // 2. Veritabanına Kayıt
+        // Veritabanına Kayıt
         Message::create([
             'name'    => $validatedData['name'],
             'email'   => $validatedData['email'],

@@ -24,7 +24,6 @@ class ResetPasswordController extends Controller
 
         event(new PasswordReset($user));
 
-        // Burada Auth::login($user) satırını çağırmadığımız için otomatik giriş yapılmaz
     }
 
     protected function sendResetResponse(Request $request, $response)

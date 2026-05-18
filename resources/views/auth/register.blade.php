@@ -68,7 +68,7 @@
                     <h2 class="auth_title">Aramıza Katıl</h2>
                     <p class="text-center text-muted mb-4 small">Dostunuz için en iyisini seçmeye bir adım kaldı!</p>
                     
-                    {{-- Hata Mesajlarını Gösterme Alanı --}}
+                    {{-- Hata mesajlarını gösterme alanı --}}
                     @if ($errors->any())
                         <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 10px;">
                             <ul class="mb-0 small">

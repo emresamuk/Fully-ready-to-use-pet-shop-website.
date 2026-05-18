@@ -20,12 +20,12 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // 1. GÜVENLİK KONTROLÜ: Ürün aktif mi?
+        // Ürün aktif mi?
         if ($product->is_active == 0) {
             return redirect()->back()->with('error', 'Bu ürün artık satışta değildir.');
         }
 
-        // 2. GÜVENLİK KONTROLÜ: Stok var mı?
+        // Stok var mı?
         if ($product->stock <= 0) {
             return redirect()->back()->with('error', 'Bu ürünün stoğu tükenmiştir.');
         }
@@ -107,7 +107,7 @@ class CartController extends Controller
         foreach($cart as $id => $item) {
             $product = Product::find($id);
             
-            // 3. GÜVENLİK KONTROLÜ: Ödeme anında ürünün aktifliği ve stoğu hala uygun mu?
+            // Ödeme anında ürünün aktifliği ve stoğu hala uygun mu?
             if (!$product || $product->is_active == 0) {
                 return redirect('/cart')->with('error', ($item['name'] ?? 'Bir ürün') . ' artık satışta değil. Lütfen sepetinizden çıkarın.');
             }
