@@ -11,6 +11,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Bütün önbellekleri ve .env ayarlarını ezip zorla Mailtrap API'yi seçtiriyoruz
+        config(['mail.default' => 'mailtrap']);
+    
+        // Kuyruk sistemini ezip mailleri veritabanında bekletmeden anında göndertiyoruz
+        config(['queue.default' => 'sync']);
+
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
