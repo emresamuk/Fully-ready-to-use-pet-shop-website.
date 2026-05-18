@@ -22,45 +22,47 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
-        if (config('app.env') === 'production') {
-            URL::forceScheme('https');
-        }
+{
+    // Hangi .env değişkeni olursa olsun, SMTP motorunu koddan tamamen kapatıyoruz
+    config(['mail.default' => 'log']);
+    config(['mail.mailers.smtp.transport' => 'log']);
 
-        Password::sendResetLinkUsing(function ($user, $token) {
-            // Tam URL oluşturma (Canlı sunucu için en garanti yöntem)
-            $resetUrl = url('/password/reset/' . $token . '?email=' . urlencode($user->getEmailForPasswordReset()));
-
-            // Variables sekmesinde MAILTRAP_INBOX_ID tanımlı değilse hata vermemesi için varsayılan değer bıraktık
-            $inboxId = env('MAILTRAP_INBOX_ID', '3190458'); 
-            $apiKey = env('MAILTRAP_API_KEY');
-
-            try {
-                $response = Http::withToken($apiKey)
-                    ->timeout(10) // Sunucuyu kilitlememesi için 10 saniye timeout
-                    ->post("https://sandbox.api.mailtrap.io/api/send/{$inboxId}", [
-                        'from' => [
-                            'email' => 'info@droolpetshop.com',
-                            'name' => 'Drool Pet Shop'
-                        ],
-                        'to' => [
-                            ['email' => $user->getEmailForPasswordReset()]
-                        ],
-                        'subject' => 'Şifre Sıfırlama Talebi',
-                        'html' => '
-                            <h3>Merhaba,</h3>
-                            <p>Hesabınız için bir şifre sıfırlama talebi aldık. Aşağıdaki butona tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
-                            <p><a href="'.$resetUrl.'" style="background:#28a745;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;display:inline-block;">Şifremi Sıfırla</a></p>
-                            <p>Eğer buton çalışmıyorsa şu linki kopyalayabilirsiniz: '.$resetUrl.'</p>
-                        ',
-                    ]);
-
-                if ($response->failed()) {
-                    Log::error('Mailtrap API Hatası: ' . $response->body());
-                }
-            } catch (\Exception $e) {
-                Log::error('Mail Gönderimi Sırasında İstisna Oluştu: ' . $e->getMessage());
-            }
-        });
+    if (config('app.env') === 'production') {
+        URL::forceScheme('https');
     }
+
+    Password::sendResetLinkUsing(function ($user, $token) {
+        $resetUrl = url('/password/reset/' . $token . '?email=' . urlencode($user->getEmailForPasswordReset()));
+        $inboxId = env('MAILTRAP_INBOX_ID', '3190458'); 
+        $apiKey = env('MAILTRAP_API_KEY');
+
+        try {
+            // SMTP yerine doğrudan HTTP üzerinden Mailtrap API'ye fırlatıyoruz
+            $response = Http::withToken($apiKey)
+                ->timeout(10)
+                ->post("https://sandbox.api.mailtrap.io/api/send/{$inboxId}", [
+                    'from' => [
+                        'email' => 'info@droolpetshop.com',
+                        'name' => 'Drool Pet Shop'
+                    ],
+                    'to' => [
+                        ['email' => $user->getEmailForPasswordReset()]
+                    ],
+                    'subject' => 'Şifre Sıfırlama Talebi',
+                    'html' => '
+                        <h3>Merhaba,</h3>
+                        <p>Hesabınız için bir şifre sıfırlama talebi aldık. Aşağıdaki butona tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+                        <p><a href="'.$resetUrl.'" style="background:#28a745;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;display:inline-block;">Şifremi Sıfırla</a></p>
+                        <p>Eğer buton çalışmıyorsa şu linki kopyalayabilirsiniz: '.$resetUrl.'</p>
+                    ',
+                ]);
+
+            if ($response->failed()) {
+                Log::error('Mailtrap API Hatası: ' . $response->body());
+            }
+        } catch (\Exception $e) {
+            Log::error('Mail Gönderimi Sırasında İstisna Oluştu: ' . $e->getMessage());
+        }
+    });
+}
 }
