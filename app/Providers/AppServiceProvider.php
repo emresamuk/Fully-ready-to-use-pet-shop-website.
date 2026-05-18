@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log; // Eksik olan sınıf buraya eklendi
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,38 +21,46 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-   public function boot(): void
-{
-    // Canlı sunucuda linkleri HTTPS'e zorlamak için (Önceki adım)
-    if (config('app.env') === 'production') {
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+    public function boot(): void
+    {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
+        Password::sendResetLinkUsing(function ($user, $token) {
+            // Tam URL oluşturma (Canlı sunucu için en garanti yöntem)
+            $resetUrl = url('/password/reset/' . $token . '?email=' . urlencode($user->getEmailForPasswordReset()));
+
+            // Variables sekmesinde MAILTRAP_INBOX_ID tanımlı değilse hata vermemesi için varsayılan değer bıraktık
+            $inboxId = env('MAILTRAP_INBOX_ID', '3190458'); 
+            $apiKey = env('MAILTRAP_API_KEY');
+
+            try {
+                $response = Http::withToken($apiKey)
+                    ->timeout(10) // Sunucuyu kilitlememesi için 10 saniye timeout
+                    ->post("https://sandbox.api.mailtrap.io/api/send/{$inboxId}", [
+                        'from' => [
+                            'email' => 'info@droolpetshop.com',
+                            'name' => 'Drool Pet Shop'
+                        ],
+                        'to' => [
+                            ['email' => $user->getEmailForPasswordReset()]
+                        ],
+                        'subject' => 'Şifre Sıfırlama Talebi',
+                        'html' => '
+                            <h3>Merhaba,</h3>
+                            <p>Hesabınız için bir şifre sıfırlama talebi aldık. Aşağıdaki butona tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+                            <p><a href="'.$resetUrl.'" style="background:#28a745;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;display:inline-block;">Şifremi Sıfırla</a></p>
+                            <p>Eğer buton çalışmıyorsa şu linki kopyalayabilirsiniz: '.$resetUrl.'</p>
+                        ',
+                    ]);
+
+                if ($response->failed()) {
+                    Log::error('Mailtrap API Hatası: ' . $response->body());
+                }
+            } catch (\Exception $e) {
+                Log::error('Mail Gönderimi Sırasında İstisna Oluştu: ' . $e->getMessage());
+            }
+        });
     }
-
-    // Şifre sıfırlama mailini SMTP yerine doğrudan Mailtrap API üzerinden fırlatıyoruz
-    Password::sendResetLinkUsing(function ($user, $token) {
-        $resetUrl = url(route('password.reset', [
-            'token' => $token,
-            'email' => $user->getEmailForPasswordReset(),
-        ], false));
-
-        // Mailtrap API Endpoint (Sandbox için)
-        Http::withToken(env('MAILTRAP_API_KEY'))
-            ->post('https://sandbox.api.mailtrap.io/api/send/' . env('MAILTRAP_INBOX_ID', '3190458'), [
-                'from' => [
-                    'email' => 'info@droolpetshop.com',
-                    'name' => 'Drool Pet Shop'
-                ],
-                'to' => [
-                    ['email' => $user->getEmailForPasswordReset()]
-                ],
-                'subject' => 'Şifre Sıfırlama Talebi',
-                'html' => '
-                    <h3>Merhaba,</h3>
-                    <p>Hesabınız için bir şifre sıfırlama talebi aldık. Aşağıdaki butona tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
-                    <a href="'.$resetUrl.'" style="background:#28a745;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;">Şifremi Sıfırla</a>
-                    <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı dikkate almayınız.</p>
-                ',
-            ]);
-    });
-}
 }
