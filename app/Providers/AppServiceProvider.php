@@ -13,7 +13,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // İŞTE BURASI: Laravel'e kendi 'mailtrap' motorumuzu resmi olarak öğretiyoruz
         Mail::extend('mailtrap', function (array $config = []) {
             return new MailtrapApiTransport();
         });
