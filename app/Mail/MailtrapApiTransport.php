@@ -11,7 +11,9 @@ class MailtrapApiTransport extends AbstractTransport
 {
     protected function doSend(SentMessage $message): void
     {
-        $email = Email::fromDataType($message->getOriginalMessage());
+        // Orijinal mesajı doğrudan çekiyoruz (Hata veren fromDataType silindi)
+        /** @var Email $email */
+        $email = $message->getOriginalMessage();
         
         $toEmails = [];
         foreach ($email->getTo() as $address) {
@@ -35,7 +37,7 @@ class MailtrapApiTransport extends AbstractTransport
                 'text' => $email->getTextBody() ?? 'Şifre sıfırlama talebiniz alındı.',
             ]);
 
-        // EĞER MAİLTRAP İSTEĞİ REDDEDERSE, SİSTEMİ DURDURUP HATAYI EKRANA BASIYORUZ
+        // EĞER MAİLTRAP İSTEĞİ REDDEDERSE HATAYI EKRANA BASIYORUZ
         if ($response->failed()) {
             throw new \Exception('Mailtrap API Reddedildi! Durum Kodu: ' . $response->status() . ' | Sebep: ' . $response->body());
         }
