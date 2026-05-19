@@ -49,10 +49,8 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
-        // İŞTE BURASI DEĞİŞTİ: Hata veren sınıf silindi, kendi custom sınıfımız eklendi
         'mailtrap' => [
-            'transport' => 'custom',
-            'via' => App\Mail\MailtrapApiTransport::class,
+            'transport' => 'mailtrap', 
         ],
 
         'ses' => [
