@@ -1,69 +1,97 @@
-# 🐾 Drool Pet Shop - Web Tabanlı E-Ticaret & CMS Platformu
+<div align="center">
 
-Bu proje, içerik yönetim sistemine sahip tam kapsamlı bir e-ticaret platformudur.
+  # 🐾 Drool Pet Shop E-Commerce Platform
+
+  A modern, fast, and reliable pet products management and e-commerce system.
+
+  [![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](#)
+  [![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](#)
+  [![Pure CSS](https://img.shields.io/badge/Pure_CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)](#)
+  [![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white)](#)
+
+</div>
+
+---
+
+## 📖 About the Project
+
+**Drool Pet Shop** is a comprehensive web application where pet owners can safely browse and purchase the products they need. The project was developed by completely revamping the user interface (UI) with standard CSS, avoiding the constraints of CSS frameworks (like Tailwind).
+
+The application features dynamic announcement systems, customer testimonial sliders, and an advanced authentication infrastructure.
+
+### 🚀 Key Features and Architectural Solutions
+
+- **Custom API-Based Mail Driver (Custom Mail Transport):** A custom HTTP/REST-based Mailtrap API driver integrated into the Laravel core was developed to overcome network and SMTP restrictions in the live server (PaaS) environment.
+- **Dynamic Customer Testimonials:** A slider structure fed from the database and updated in real-time.
+- **Announcement and Campaign Management:** An interactive announcement panel that informs users instantly.
+- **Customized UI/UX:** A modern and responsive design written entirely specific to the project, without depending on external CSS libraries.
+- **Secure Authentication:** Password reset, session management, and secure route protections.
 
 ---
 
-## 📋 Proje Hakkında
-Drool Pet Shop; evcil hayvan ürünlerinin tanıtımı, satışı ve sipariş süreçlerinin yönetimini sağlayan, **Laravel MVC** mimarisi üzerine kurulu bir web uygulamasıdır. Sistem, admin ve kullanıcı rollerine dayalı bir yetkilendirme yapısına sahiptir.
+## 🛠️ Technologies Used
 
-## 🛠 Teknik Özellikler & İsterler
-Proje, dersin tüm teknik isterlerini karşılayacak şekilde aşağıdaki özelliklerle donatılmıştır:
-
-* **Rol Yönetimi:** Sistemde Admin ve User olmak üzere iki ana rol bulunmaktadır.
-* **İçerik Yönetimi (CMS):** Admin paneli üzerinden ürün ekleme, güncelleme, silme ve stok kontrolü yapılabilmektedir.
-* **Sanal Cüzdan & İade:** Sipariş iptal edildiğinde tutar, kullanıcının site içi bakiyesine (hediye olarak) iade edilir. Kullanıcı, yeni alışverişlerinde bu bakiyeyi öncelikli olarak kullanır.
-* **Sipariş Takibi:** Admin sipariş durumunu adım adım (tedarik, kargo, teslim vb.) ilerletir; kullanıcı bu süreci anlık takip edebilir.
-* **Stok ve Veri Güvenliği:** Tüm satın alma işlemleri **DB Transactions** katmanında yönetilerek veri bütünlüğü ve stok doğruluğu garanti altına alınmıştır.
-* **E-Posta Simülasyonu:** Şifre sıfırlama ve bildirim süreçleri için **Mailtrap** entegrasyonu kullanılmıştır.
-* **Responsive Tasarım:** Arayüz, Bootstrap kullanılarak tüm cihazlara (Mobil/Tablet/PC) uyumlu şekilde geliştirilmiştir.
-
-## 💻 Kullanılan Teknolojiler
-- **Backend:** PHP 8.x, Laravel 10.x / 11.x
-- **Frontend:** Blade Template Engine, CSS3, JavaScript, Bootstrap 5
-- **Veritabanı:** MySQL
-- **Test & SMTP:** Mailtrap
-- **Versiyon Kontrol:** Git & GitHub
-
-## 🚀 Kurulum Adımları
-
-Projenin yerel ortamda (Localhost) çalıştırılması için aşağıdaki adımları izleyin:
-
-1.  **Repoyu Klonlayın:**
-    ```bash
-    git clone [https://github.com/emresamuk/drool-pet-shop.git](https://github.com/emresamuk/drool-pet-shop.git)
-    cd drool-pet-shop
-    ```
-
-2.  **Bağımlılıkları Yükleyin:**
-    ```bash
-    composer install
-    npm install && npm run dev
-    ```
-
-3.  **Yapılandırma:**
-    `.env.example` dosyasını `.env` olarak kopyalayın ve veritabanı bilgilerinizi girin. Ardından uygulama anahtarını oluşturun:
-    ```bash
-    php artisan key:generate
-    ```
-
-4.  **Veritabanı ve Örnek Veriler:**
-    Migration'ları çalıştırın ve sistemin hazır gelmesi için seed'leri (Örnek ürünler ve test kullanıcıları) yükleyin:
-    ```bash
-    php artisan migrate --seed
-    ```
-
-5.  **Sunucuyu Başlatın:**
-    ```bash
-    php artisan serve
-    ```
-
-## 📊 Veritabanı Mimarisi
-Proje kapsamında hazırlanan **Varlık-İlişki (ER) Diyagramı** uyarınca; `users`, `products`, `orders` ve `order_items` tabloları arasında ilişkisel bir bağ kurulmuştur. Veritabanı şeması, mühendislik prensiplerine uygun olarak normalizasyon kurallarına göre tasarlanmıştır.
-
-## 📧 İletişim & Sunum
-- **Geliştirici:** Emre Samuk
-- **Kurum:** Kocaeli Üniversitesi Teknoloji Fakültesi
+- **Backend:** PHP 8.x, Laravel
+- **Frontend:** HTML5, Pure CSS, JavaScript (jQuery/Bootstrap JS interactions)
+- **Database:** MySQL
+- **Server & Deployment (CI/CD):** Railway, FrankenPHP
+- **Services:** Mailtrap API (Custom Driver)
 
 ---
-*Bu proje akademik amaçlarla geliştirilmiştir*
+
+## ⚙️ Installation and Development Environment
+
+You can follow the steps below to run the project in your local environment:
+
+### Prerequisites
+- PHP >= 8.2
+- Composer
+- Node.js & npm (For optional asset compilation)
+- MySQL
+
+### Steps
+
+1. **Clone the Repository**
+   ```bash
+   git clone [https://github.com/KULLANICI_ADIN/drool-pet-shop.git](https://github.com/KULLANICI_ADIN/drool-pet-shop.git)
+   cd drool-pet-shop
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
+
+3. **Set Up Environment Variables**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   *(Open the .env file and configure your database connection settings.)*
+
+4. **Prepare the Database**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. **Define Custom Mailtrap API Settings (.env)**
+   *The project uses a custom-developed API driver instead of standard SMTP:*
+   ```env
+   MAIL_MAILER=mailtrap
+   MAILTRAP_API_KEY=your_api_key_here
+   MAILTRAP_INBOX_ID=your_inbox_id_here
+   MAIL_FROM_ADDRESS="info@droolpetshop.com"
+   ```
+
+6. **Start the Server**
+   ```bash
+   php artisan serve
+   ```
+   *(The application will start running at `http://localhost:8000`.)*
+
+---
+
+## 👨‍💻 Developer
+
+**Emre Samuk** *Information Systems Engineering* [My GitHub Profile](https://github.com/emresamuk)
